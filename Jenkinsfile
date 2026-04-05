@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             steps {
-                withEnv(["KUBECONFIG=/var/lib/jenkins/.kube/config"]) {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
                 sh 'kubectl apply -f k8s/deployment.yaml'
                 sh 'kubectl apply -f k8s/service.yaml'
                     }
