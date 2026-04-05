@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.12-slim'  // Python with pip pre-installed
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     environment {
         DOCKER_IMAGE = "kavya36/cicd-python-app"
@@ -13,13 +8,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Kavya362000/cicd-python-app.git'
+                git branch: 'main', url: 'https://github.com/Kavya362000/cicd-python-app.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh 'pip3 install -r requirements.txt'
             }
         }
 
